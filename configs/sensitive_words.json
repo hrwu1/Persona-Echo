@@ -1,0 +1,9 @@
+[
+    {"word": "Tom Marvolo Riddle", "type": "full_name"},
+    {"word": "Tom", "type": "abbr_name"},
+    {"word": "Lord Voldemort", "type": "nick_name"},
+    {"word": "YouKnowWho", "type": "user_name"},
+    {"word": "12345678900", "type": "phone_number"},
+    {"word": "000000000000000000", "type": "id_number"},
+    {"word": "XX0000000", "type": "passport_number"}
+]

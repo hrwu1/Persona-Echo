@@ -1,0 +1,42 @@
+paths:
+  chat_history: "data/sample_data" # Path to the raw data
+  processed_data: "data/cleaned_data" # Path to the cleaned data
+  extra_sticker: "data/extra_sticker" # Path to the extra sticker
+  sensitive_words: "configs/sensitive_words.json" # Path to the sensitive words
+
+settings:
+  method: "lora"
+  model_name: "Qwen/Qwen2.5-72B-Instruct-AWQ"
+  delete_tmp_jsonl: false
+  save_intermediate_csv: true
+  include_official_sticker: false
+  include_customized_sticker: true
+  tokenize_emoji: false
+
+data_processing:
+  file_type: "jsonl"
+  combine_interval: 1800 # 30 minutes
+  split_interval: 7200 # 2 * 3600, 2 hours
+  turn_num: 4
+  stride: 4
+  newline_token: "\n"
+  eos_token: "" #<eos>
+
+memory_processing:
+  api_key: "" # DeepSeek API Key
+  model: "deepseek-chat"
+  material_path: "data/memory_data"
+  memory_path: "data/memory_data"
+  collection_name: "memory_collection"
+  database_path: "data/memory_data/database"
+
+lora_training:
+  lora_r: 32
+  lora_alpha: 64
+  lora_dropout: 0.1
+  lora_path: "models/finetuned_lora"
+  lora_epochs: 3
+  lora_learning_rate: 0.0003
+  lora_batch_size: 2
+  lora_gradient_accumulation_steps: 4
+
