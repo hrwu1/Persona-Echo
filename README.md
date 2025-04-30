@@ -1,5 +1,7 @@
 # Persona-Echo
 
+[English](README.md) | [中文](README_zh.md)
+
 Persona-Echo is a conversational AI system designed to imitate a persona through fine-tuning large language models (LLMs) on chat history data. It combines memory extraction, retrieval-augmented generation (RAG), and LoRA fine-tuning to create a personalized chat experience that mimics the style, tone, and knowledge of a specific individual.
 
 ## Overview
