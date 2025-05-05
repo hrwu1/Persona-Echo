@@ -35,6 +35,8 @@ class ChatMemoryExtractor:
         self.max_tokens = max_tokens
         self.model = model
         
+        self.config = load_config()
+        openai_api_key = self.config["memory_processing"]["api_key"]
         # Set up OpenAI client
         if openai_api_key:
             self.client = openai.OpenAI(api_key=openai_api_key, base_url="https://api.deepseek.com")

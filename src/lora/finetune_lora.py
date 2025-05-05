@@ -186,21 +186,40 @@ class LoRAFinetuner:
     
     def prepare_dataset(self, max_length=128):
         """Prepare and tokenize the dataset for training"""
-        # Load chat samples
         chat_samples = self.load_chat_dataset()
+        tokenized = []
+        for example in chat_samples:
+            processed = self.tokenize_single_response(example, max_length=max_length)
+            if processed is not None:
+                # convert torch Tensors → lists so Dataset.from_list can handle them
+                ready = {
+                    "input_ids": processed["input_ids"].tolist(),
+                    "attention_mask": processed["attention_mask"].tolist(),
+                    "labels": processed["labels"]
+                }
+                tokenized.append(ready)
+                
+        self.dataset = Dataset.from_list(tokenized)
+        print(f"Prepared dataset with {len(tokenized)} samples")
+        # Load chat samples
+        #chat_samples = self.load_chat_dataset()
+        #print("Chat samples loaded")
         
         # Convert to a Hugging Face Dataset
-        hf_dataset = Dataset.from_list(chat_samples)
-        
+        #hf_dataset = Dataset.from_list(chat_samples)
+        #print("Chat samples converted")
+
         # Tokenize and filter out any samples that failed
-        tokenized_dataset = hf_dataset.map(
-            lambda x: self.tokenize_single_response(x, max_length=max_length),
-            batched=False
-        ).filter(lambda x: x is not None)
+        #tokenized_dataset = hf_dataset.map(
+        #    lambda x: self.tokenize_single_response(x, max_length=max_length),
+        #    batched=False,
+        #    num_proc=None,
+        #).filter(lambda x: x is not None)
+        #print("Chat samples tokenized")
         
-        self.dataset = tokenized_dataset
-        print(f"Prepared dataset with {len(tokenized_dataset)} samples")
-        return tokenized_dataset
+        #self.dataset = tokenized_dataset
+        #print(f"Prepared dataset with {len(tokenized_dataset)} samples")
+        #return tokenized_dataset
     
     def train(self):
         """Train the model with the prepared dataset"""
